@@ -1,0 +1,16 @@
+owl-carousel-o {
+  position: relative;
+}
+::ng-deep .owl-prev,
+::ng-deep .owl-next {
+  position: absolute;
+  top: 40%;
+  background-color: black !important;
+}
+::ng-deep .owl-prev {
+  left: 0;
+}
+
+::ng-deep .owl-next {
+  right: 0;
+}

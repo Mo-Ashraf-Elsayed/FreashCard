@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300&display=swap");
+@import "tailwindcss";
+
+@source "../node_modules/flowbite";
+@theme {
+  --color-mainColor: #ff6600;
+  --color-lightColor: #f0f3f2;
+  --font-mainFont: "Encode Sans Expanded", sans-serif;
+  --color-rating: #ffc908;
+  --shadow-myShadow: rgba(145, 158, 171, 0.2) 0px 2px 4px -1px,
+    rgba(145, 158, 171, 0.14) 0px 4px 5px 0px,
+    rgba(145, 158, 171, 0.12) 0px 1px 10px 0px;
+}
+
+@layer components {
+  .btn-product-card {
+    @apply cursor-pointer opacity-0 translate-y-full text-mainColor border-2 py-2 px-3 rounded-2xl bg-white text-sm font-bold hover:bg-mainColor hover:border-mainColor  hover:text-white group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300;
+  }
+  .btn-favourite {
+    @apply top-0 -right-25 text-2xl bg-lightColor w-13 h-13 rounded-full opacity-0 group-hover:opacity-100 group-hover:right-0 transition-all duration-300 hover:text-mainColor cursor-pointer;
+  }
+}
