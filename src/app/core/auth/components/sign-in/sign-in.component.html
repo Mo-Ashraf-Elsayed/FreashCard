@@ -23,14 +23,16 @@
                     placeholder=" " />
                 <label for="floating_password"
                     class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-mainColor peer-focus:dark:text-mainColor peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Password</label>
-                <i (click)="showAndHidePassword()"
-                    class="text-gray-500 hover:text-black fa-solid fa-eye absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"></i>
-
+                <i (click)="showAndHidePassword()" [class.none]="showPassword"
+                    class="fa-solid fa-eye eye-btn"></i>
+                <i (click)="showAndHidePassword()" [class.none]="!showPassword"
+                    class="fa-solid fa-eye-slash eye-btn none"></i>
             </div>
-            <app-validation-messages
-                [controls]="authForm.get('password')"></app-validation-messages>
-
-            <button type="submit" [disabled]="authForm.invalid||isLoading"
+            <div class="-translate-y-5">
+                <app-validation-messages
+                    [controls]="authForm.get('password')"></app-validation-messages>
+            </div>
+            <button type="submit"
                 [class.bg-gray-500]="isLoading"
                 class="submit-btn">
                 @if(isLoading){
@@ -53,8 +55,13 @@
             </button>
 
             @if(responseMessage){
-            <div
-                class="p-4 mb-4 text-sm text-red-800 bg-red-50 dark:text-red-400 rounded-lg  dark:bg-gray-800 "
+            <div [class]="{
+                'text-green-800': messageSuccess,
+                'bg-green-50': messageSuccess,
+                'text-red-800': messageError,
+                'bg-red-50': messageError,
+            }"
+                class="p-4 mb-4 mt-3 text-sm dark:text-red-400 rounded-lg dark:bg-gray-800 "
                 role="alert">
                 {{responseMessage}}
             </div>

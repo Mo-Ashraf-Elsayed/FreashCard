@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -88,15 +88,14 @@ export class SignUpComponent implements OnInit {
       });
     } else {
       this.authForm.markAllAsTouched();
-      this.authForm.get('rePassword')?.setValue('');
+      // this.authForm.get('rePassword')?.setValue('');
+      this.isLoading = false;
     }
   }
   showPassword: boolean = false;
-  showAndHidePassword() {
-    this.showPassword = !this.showPassword;
-  }
   showRePassword: boolean = false;
-  showAndHideRePassword() {
-    this.showRePassword = !this.showRePassword;
+  showAndHidePassword(input: string) {
+    if (input === 'pass') this.showPassword = !this.showPassword;
+    else this.showRePassword = !this.showRePassword;
   }
 }

@@ -26,9 +26,11 @@ export class MainSliderComponent {
     responsive: {
       0: {
         items: 1,
+        nav: false,
       },
       400: {
         items: 1,
+        nav: false,
       },
       740: {
         items: 1,

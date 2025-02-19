@@ -4,8 +4,12 @@ owl-carousel-o {
 ::ng-deep .owl-prev,
 ::ng-deep .owl-next {
   position: absolute;
-  top: 40%;
-  background-color: black !important;
+  top: 50%;
+  padding: 1.1rem !important;
+  background-color: rgba(0, 0, 0, 0.26) !important;
+  transform: translateY(-50%);
+  border-radius: 50% !important;
+  font-size: 1rem !important;
 }
 ::ng-deep .owl-prev {
   left: 0;

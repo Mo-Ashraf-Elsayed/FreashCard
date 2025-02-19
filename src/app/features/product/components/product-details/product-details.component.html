@@ -6,18 +6,18 @@
 
             <div class="flex justify-center items-center m-auto">
                 <i (click)="previous()"
-                    class="text-amber-300 fa-solid fa-chevron-left cursor-pointer text-3xl"></i>
+                    class="fa-solid fa-chevron-left cursor-pointer text-3xl bg-gray-200 p-3 sm:p-5 rounded-s-2xl"></i>
                 <img class="w-9/11 sm:w-5/9"
                     [src]="productDetails.images[imageIndexSlider]"
                     alt>
                 <i (click)="next()"
-                    class="fa-solid fa-chevron-right cursor-pointer text-3xl"></i>
+                    class="fa-solid fa-chevron-right cursor-pointer text-3xl bg-gray-200 p-3 sm:p-5 rounded-e-2xl"></i>
             </div>
             <div class="flex justify-center flex-wrap my-5 w-full mx-auto">
 
                 @for(image of productDetails.images; track $index){
                 <img [src]="image" (click)="getIndexOfImageSlider($index)"
-                    class="h-23 m-3 cursor-pointer" alt>
+                    class="h-23 m-3 rounded-xl cursor-pointer" alt>
                 }
 
             </div>

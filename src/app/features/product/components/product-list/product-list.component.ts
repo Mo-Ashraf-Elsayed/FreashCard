@@ -15,7 +15,7 @@ export class ProductListComponent implements OnInit {
   getAllProducts() {
     this.productService.getProducts().subscribe({
       next: ({ data }) => {
-        this.productList = data;
+        this.productList = data.reverse();
       },
     });
   }

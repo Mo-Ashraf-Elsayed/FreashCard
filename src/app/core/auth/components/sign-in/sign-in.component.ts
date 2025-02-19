@@ -19,6 +19,8 @@ import { ValidationMessagesComponent } from '../../../../shared/components/valid
 export class SignInComponent {
   isLoading: boolean = false;
   responseMessage: string = '';
+  messageError: boolean = false;
+  messageSuccess: boolean = false;
   private readonly router = inject(Router);
   authForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -39,21 +41,28 @@ export class SignInComponent {
     this.isLoading = true;
     if (this.authForm.valid) {
       this.authService.signIn(this.authForm.value).subscribe({
-        next: ({ message }) => {
-          this.isLoading = false;
-          if (message) {
+        next: (res) => {
+          this.isLoading = true;
+          console.log(res);
+          this.messageSuccess = true;
+          this.authService.localStorage('set', res.token);
+          if (res.message) {
+            this.responseMessage = res.message;
             setTimeout(() => {
               this.router.navigate(['home']);
             }, 500);
           }
         },
-        error: ({ error }) => {
-          this.responseMessage = error.message;
+        error: (error) => {
+          console.log(error);
+          this.messageError = true;
+          this.responseMessage = error.error.message;
           this.isLoading = false;
         },
       });
     } else {
       this.authForm.markAllAsTouched();
+      this.isLoading = false;
     }
   }
   showPassword: boolean = false;
