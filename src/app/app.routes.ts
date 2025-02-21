@@ -10,6 +10,8 @@ import { BrandsListComponent } from './features/brands/components/brands-list/br
 import { ProductDetailsComponent } from './features/product/components/product-details/product-details.component';
 import { authenticationGuard } from './core/guards/authentication.guard';
 import { isLoginGuard } from './core/guards/is-login.guard';
+import { CartListComponent } from './features/cart/components/cart-list/cart-list.component';
+import { WishListCardComponent } from './features/wishList/components/wish-list-card/wish-list-card.component';
 
 export const routes: Routes = [
   {
@@ -18,8 +20,8 @@ export const routes: Routes = [
     component: VisitorLayoutComponent,
     children: [
       { path: '', redirectTo: 'signIn', pathMatch: 'full' },
-      { path: 'signIn', component: SignInComponent },
-      { path: 'signUp', component: SignUpComponent },
+      { path: 'signIn', component: SignInComponent, title: 'Sign In' },
+      { path: 'signUp', component: SignUpComponent, title: 'Sign Up' },
     ],
   },
   {
@@ -28,13 +30,24 @@ export const routes: Routes = [
     canActivate: [authenticationGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
-      { path: 'products', component: ProductListComponent },
-      { path: 'categories', component: CategoryListComponent },
-      { path: 'brands', component: BrandsListComponent },
+      { path: 'home', component: HomeComponent, title: 'Home' },
+      { path: 'products', component: ProductListComponent, title: 'Products' },
+      {
+        path: 'categories',
+        component: CategoryListComponent,
+        title: 'Categories',
+      },
+      { path: 'brands', component: BrandsListComponent, title: 'Brands' },
       {
         path: 'productDetails/:productName/:id',
         component: ProductDetailsComponent,
+        title: 'Product Details',
+      },
+      { path: 'cart', component: CartListComponent, title: 'Cart' },
+      {
+        path: 'wishList',
+        component: WishListCardComponent,
+        title: 'Wish List',
       },
     ],
   },
