@@ -1,0 +1,23 @@
+<section class="h-screen flex items-center">
+    <div class="w-14/15 mx-auto md:flex items-center text-center md:text-start">
+        <div class="md:w-1/2">
+            <img src="./images/erroe.jpeg" class="w-full" alt>
+        </div>
+        <div class="md:w-1/2">
+            <h1 class="text-xl font-bold mb-5">Oops! We can't find the page
+                you're
+                looking
+                for.</h1>
+            <div>
+                <button (click)="goBack()"
+                    class="bg-mainColor text-white p-2 px-4 rounded me-10"><i
+                        class="fa-solid fa-circle-left cursor-pointer"></i>
+                    Back</button>
+                <button routerLink="/home"
+                    class="border-2 border-mainColor p-2 px-4 rounded text-mainColor cursor-pointer">Go
+                    To
+                    Home</button>
+            </div>
+        </div>
+    </div>
+</section>

@@ -12,6 +12,7 @@ import { authenticationGuard } from './core/guards/authentication.guard';
 import { isLoginGuard } from './core/guards/is-login.guard';
 import { CartListComponent } from './features/cart/components/cart-list/cart-list.component';
 import { WishListCardComponent } from './features/wishList/components/wish-list-card/wish-list-card.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -51,4 +52,5 @@ export const routes: Routes = [
       },
     ],
   },
+  { path: '**', component: NotFoundComponent },
 ];

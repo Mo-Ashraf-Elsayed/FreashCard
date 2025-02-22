@@ -30,6 +30,10 @@
 :root {
   --mainColor: #ff6600;
 }
+::selection {
+  color: white;
+  background-color: var(--mainColor);
+}
 .none {
   display: none;
 }
