@@ -36,11 +36,16 @@ export class AuthService {
     }
     return null;
   }
-  verifyToken(token: any): Observable<any> {
-    return this.http.get(environment.baseURL + 'auth/verifyToken', {
-      headers: {
-        token,
-      },
-    });
+  verifyToken(): Observable<any> {
+    return this.http.get(environment.baseURL + 'auth/verifyToken');
+  }
+  forgotPassword(email: any): Observable<any> {
+    return this.http.post(environment.baseURL + 'auth/forgotPasswords', email);
+  }
+  verifyResetCode(code: any): Observable<any> {
+    return this.http.post(environment.baseURL + 'auth/verifyResetCode', code);
+  }
+  resetPassword(data: any): Observable<any> {
+    return this.http.put(environment.baseURL + 'auth/resetPassword', data);
   }
 }

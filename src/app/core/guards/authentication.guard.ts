@@ -12,7 +12,7 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
     router.navigate(['signIn']);
     return false;
   }
-  authService.verifyToken(authService.localStorage('get')).subscribe({
+  authService.verifyToken().subscribe({
     next: ({ message }) => {
       verifyMsg = message;
       router.navigate(['home']);

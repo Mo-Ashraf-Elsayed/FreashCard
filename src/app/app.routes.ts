@@ -13,6 +13,9 @@ import { isLoginGuard } from './core/guards/is-login.guard';
 import { CartListComponent } from './features/cart/components/cart-list/cart-list.component';
 import { WishListCardComponent } from './features/wishList/components/wish-list-card/wish-list-card.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { ForgotPasswordComponent } from './core/auth/components/forgot-password/forgot-password.component';
+import { VerifyResetCodeComponent } from './core/auth/components/verify-reset-code/verify-reset-code.component';
+import { ResetPasswordComponent } from './core/auth/components/reset-password/reset-password.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +26,21 @@ export const routes: Routes = [
       { path: '', redirectTo: 'signIn', pathMatch: 'full' },
       { path: 'signIn', component: SignInComponent, title: 'Sign In' },
       { path: 'signUp', component: SignUpComponent, title: 'Sign Up' },
+      {
+        path: 'forgotPassword',
+        component: ForgotPasswordComponent,
+        title: 'Forgot Password',
+      },
+      {
+        path: 'verifyCode',
+        component: VerifyResetCodeComponent,
+        title: 'Verify Code',
+      },
+      {
+        path: 'resetPassword',
+        component: ResetPasswordComponent,
+        title: 'Reset Password',
+      },
     ],
   },
   {

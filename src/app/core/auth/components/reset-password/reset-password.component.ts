@@ -3,20 +3,19 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  AbstractControl,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ValidationMessagesComponent } from '../../../../shared/components/validation-messages/validation-messages.component';
 
 @Component({
-  selector: 'app-sign-in',
-  imports: [ValidationMessagesComponent, ReactiveFormsModule, RouterLink],
-  templateUrl: './sign-in.component.html',
-  styleUrl: './sign-in.component.css',
+  selector: 'app-reset-password',
+  imports: [ValidationMessagesComponent, ReactiveFormsModule],
+  templateUrl: './reset-password.component.html',
+  styleUrl: './reset-password.component.css',
 })
-export class SignInComponent {
+export class ResetPasswordComponent {
   isLoading: boolean = false;
   responseMessage: string = '';
   messageError: boolean = false;
@@ -26,37 +25,21 @@ export class SignInComponent {
   private readonly authService = inject(AuthService);
   authForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [
+    newPassword: new FormControl('', [
       Validators.required,
       Validators.pattern(
         '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
       ),
     ]),
   });
-  passwordMatch(control: AbstractControl) {
-    return control.get('password')?.value === control.get('rePassword')?.value
-      ? null
-      : { mismatch: true };
-  }
+
   submitForm() {
     this.isLoading = true;
     if (this.authForm.valid) {
-      this.authService.signIn(this.authForm.value).subscribe({
+      this.authService.resetPassword(this.authForm.value).subscribe({
         next: (res) => {
-          this.isLoading = true;
-          this.messageSuccess = true;
           this.authService.localStorage('set', res.token);
-          if (res.message) {
-            this.responseMessage = res.message;
-            setTimeout(() => {
-              this.router.navigate(['home']);
-            }, 500);
-          }
-        },
-        error: (error) => {
-          this.messageError = true;
-          this.responseMessage = error.error.message;
-          this.isLoading = false;
+          this.router.navigate(['home']);
         },
       });
     } else {
