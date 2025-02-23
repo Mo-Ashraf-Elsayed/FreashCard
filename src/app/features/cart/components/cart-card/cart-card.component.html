@@ -8,8 +8,9 @@
         class="sm:grid grid-cols-12 col-span-8 sm:col-span-11 place-content-between sm:items-center">
         <div class="sm:col-span-10 lg:col-span-11 mb-5 sm:mb-0">
             <div>{{cartItem.product.title}}</div>
-            <div class="text-mainColor my-2">Price : {{cartItem.price}} <i
-                    class="fa-solid fa-sterling-sign"></i></div>
+            <div class="text-mainColor my-2">Price : <i
+                    class="fa-solid fa-sterling-sign"></i>
+                {{cartItem.price}}</div>
             <button class="text-red-800 cursor-pointer"
                 (click)="productId.emit(cartItem.product._id)">
                 <i class="fa-solid fa-trash-can"></i> remove

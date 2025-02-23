@@ -1,8 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { AuthService } from '../../../../core/auth/services/auth.service';
 import { CartCardComponent } from '../cart-card/cart-card.component';
-import { Cart, Product } from '../../models/cart';
+import { Product } from '../../models/cart';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -13,12 +12,13 @@ import { RouterLink } from '@angular/router';
 })
 export class CartListComponent implements OnInit {
   private readonly cartService = inject(CartService);
-  private readonly authService = inject(AuthService);
   cartList: Product[] = [];
   totalPrice!: number;
+  cartId!: string;
   getCartList(): void {
     this.cartService.getUserCart().subscribe({
       next: (res) => {
+        this.cartId = res.cartId;
         this.totalPrice = res.data.totalCartPrice;
         this.cartList = res.data.products;
       },

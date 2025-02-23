@@ -16,6 +16,7 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 import { ForgotPasswordComponent } from './core/auth/components/forgot-password/forgot-password.component';
 import { VerifyResetCodeComponent } from './core/auth/components/verify-reset-code/verify-reset-code.component';
 import { ResetPasswordComponent } from './core/auth/components/reset-password/reset-password.component';
+import { CheckOutComponent } from './features/order/components/check-out/check-out.component';
 
 export const routes: Routes = [
   {
@@ -67,6 +68,11 @@ export const routes: Routes = [
         path: 'wishList',
         component: WishListCardComponent,
         title: 'Wish List',
+      },
+      {
+        path: 'checkOut/:cartId',
+        component: CheckOutComponent,
+        title: 'Check Out',
       },
     ],
   },

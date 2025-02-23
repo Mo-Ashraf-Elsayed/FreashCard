@@ -25,6 +25,11 @@ controls?.errors && !controls?.get('rePassword') ){
     </li>
     }
     @if(controls?.getError('pattern')){
+    @if(controlName === 'phone'){
+    <li>
+        The Number Must Start With 01(0,1,2,5) & Must be 11 caracteres
+    </li>
+    }@else {
     <li>
         <ul class="list-decimal ps-5">
             <li>At least one upper case English letter</li>
@@ -34,6 +39,7 @@ controls?.errors && !controls?.get('rePassword') ){
             <li>Minimum eight in length </li>
         </ul>
     </li>
+    }
     }
 </ul>
 
