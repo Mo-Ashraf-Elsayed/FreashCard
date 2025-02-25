@@ -16,7 +16,6 @@ export class CategorySliderComponent implements OnInit {
     this.categories.getAllCategories().subscribe({
       next: ({ data }) => {
         this.categoryList = data;
-        console.log(this.categoryList);
       },
     });
   }

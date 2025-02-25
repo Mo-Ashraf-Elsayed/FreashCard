@@ -19,13 +19,22 @@
         </div>
     </div>
     <div class="flex justify-center w-9/10 mx-auto">
-        <button (click)="addToCart.emit(product._id)"
+        <button (click)="toCart.emit(product._id)"
             class="btn-product-card grow">
             <i class="fa-solid fa-cart-shopping"></i> Cart
         </button>
     </div>
-    <button (click)="addToWishList.emit(product._id)"
+    <button (click)="toWishList.emit(product._id)"
         class="btn-favourite absolute top-3 -right-6 opacity-0 group-hover:right-3 group-hover:opacity-100">
+        @if(!place){
+        @if (isProductAddedtoWishList()){
+        <i class="fa-solid fa-heart text-mainColor"></i>
+        }
+        @else {
         <i class="fa-regular fa-heart"></i>
+        }
+        }@else{
+        <i class="fa-solid fa-trash-can text-red-800"></i>
+        }
     </button>
 </div>

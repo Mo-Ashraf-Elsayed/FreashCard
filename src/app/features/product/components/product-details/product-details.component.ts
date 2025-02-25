@@ -18,12 +18,52 @@ export class ProductDetailsComponent implements OnInit {
   private readonly wishListService = inject(WishListService);
   productId!: string | null;
   productDetails: Product = {} as Product;
+  copyOfProductDetails: string = JSON.stringify(this.productDetails);
   imageIndexSlider: number = 0;
-  isAddedToWishList!: boolean;
+  userWishListAfterDelete: Product[] = [];
+  userWishList: Product[] = [];
 
   ngOnInit(): void {
     this.getProductId();
     this.getProductDetails(this.productId);
+    this.wishListService.wishListArr.subscribe({
+      next: (value) => {
+        this.userWishList = value;
+      },
+    });
+  }
+  isProductDetailsEmpty(): boolean {
+    if (this.copyOfProductDetails === '{}') return true;
+    return false;
+  }
+  isProductAddedtoWishList(productId: string): boolean {
+    for (let i = 0; i < this.userWishList.length; i++) {
+      if (this.userWishList[i]._id === productId) {
+        return true;
+      } else if (typeof this.userWishList[i] === 'string') {
+        if ((this.userWishList[i] as unknown as string) === productId) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  toggleFromWishList(productId: string): void {
+    if (this.isProductAddedtoWishList(productId)) {
+      this.wishListService.removeProductFromWishList(productId).subscribe({
+        next: ({ data }) => {
+          this.wishListService.wishListLength.next(data.length);
+          this.wishListService.wishListArr.next(data);
+        },
+      });
+    } else {
+      this.wishListService.addProductToWishList(productId).subscribe({
+        next: ({ data }) => {
+          this.wishListService.wishListLength.next(data.length);
+          this.wishListService.wishListArr.next(data);
+        },
+      });
+    }
   }
   getProductId(): void {
     this.activatedRoute.paramMap.subscribe({
@@ -40,11 +80,11 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
   addToCart(productId: string): void {
-    this.cartService.addToCart(productId).subscribe({});
-  }
-  addToWishList(productId: string): void {
-    this.wishListService.addProductToWishList(productId).subscribe({});
-    this.isAddedToWishList = true;
+    this.cartService.addToCart(productId).subscribe({
+      next: (res) => {
+        this.cartService.cartItems.next(res.numOfCartItems);
+      },
+    });
   }
   getIndexOfImageSlider(index: number): void {
     this.imageIndexSlider = index;

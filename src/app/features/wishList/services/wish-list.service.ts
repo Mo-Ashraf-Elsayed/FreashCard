@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { AuthService } from '../../../core/auth/services/auth.service';
+import { Product } from '../../product/models/product';
 
 @Injectable({
   providedIn: 'root',
@@ -10,36 +10,17 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 export class WishListService {
   constructor() {}
   private readonly http = inject(HttpClient);
-  private readonly authService = inject(AuthService);
-  private readonly userToken: string | boolean =
-    this.authService.localStorage('get')!;
-
+  wishListLength: BehaviorSubject<number> = new BehaviorSubject(0);
+  wishListArr = new BehaviorSubject<Product[]>([]);
   addProductToWishList(productId: string): Observable<any> {
-    if (typeof this.userToken === 'string') {
-      return this.http.post(
-        environment.baseURL + 'wishlist',
-        { productId },
-        { headers: { token: this.userToken } }
-      );
-    }
-    return of(false);
+    return this.http.post(environment.baseURL + 'wishlist', { productId });
   }
 
   removeProductFromWishList(productId: string): Observable<any> {
-    if (typeof this.userToken === 'string') {
-      return this.http.delete(environment.baseURL + `wishlist/${productId}`, {
-        headers: { token: this.userToken },
-      });
-    }
-    return of(false);
+    return this.http.delete(environment.baseURL + `wishlist/${productId}`);
   }
 
   getUserWishList(): Observable<any> {
-    if (typeof this.userToken === 'string') {
-      return this.http.delete(environment.baseURL + `wishlist`, {
-        headers: { token: this.userToken },
-      });
-    }
-    return of(false);
+    return this.http.get(environment.baseURL + `wishlist`);
   }
 }

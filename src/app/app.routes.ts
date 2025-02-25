@@ -11,12 +11,12 @@ import { ProductDetailsComponent } from './features/product/components/product-d
 import { authenticationGuard } from './core/guards/authentication.guard';
 import { isLoginGuard } from './core/guards/is-login.guard';
 import { CartListComponent } from './features/cart/components/cart-list/cart-list.component';
-import { WishListCardComponent } from './features/wishList/components/wish-list-card/wish-list-card.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { ForgotPasswordComponent } from './core/auth/components/forgot-password/forgot-password.component';
 import { VerifyResetCodeComponent } from './core/auth/components/verify-reset-code/verify-reset-code.component';
 import { ResetPasswordComponent } from './core/auth/components/reset-password/reset-password.component';
 import { CheckOutComponent } from './features/order/components/check-out/check-out.component';
+import { WishListComponent } from './features/wishList/components/wish-list/wish-list.component';
 
 export const routes: Routes = [
   {
@@ -66,7 +66,7 @@ export const routes: Routes = [
       { path: 'cart', component: CartListComponent, title: 'Cart' },
       {
         path: 'wishList',
-        component: WishListCardComponent,
+        component: WishListComponent,
         title: 'Wish List',
       },
       {
