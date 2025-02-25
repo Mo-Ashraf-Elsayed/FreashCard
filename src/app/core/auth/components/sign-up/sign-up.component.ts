@@ -1,8 +1,6 @@
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -88,7 +86,6 @@ export class SignUpComponent implements OnInit {
       });
     } else {
       this.authForm.markAllAsTouched();
-      // this.authForm.get('rePassword')?.setValue('');
       this.isLoading = false;
     }
   }

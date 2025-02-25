@@ -7,7 +7,11 @@ export const errorsInterceptor: HttpInterceptorFn = (req, next) => {
   const toster = inject(ToastrService);
   return next(req).pipe(
     catchError((err) => {
-      toster.error(err.error.message, 'Error');
+      if (
+        err.error.message !==
+        'You are not logged in. Please login to get access'
+      )
+        toster.error(err.error.message, 'Error');
       return throwError(() => err);
     })
   );
