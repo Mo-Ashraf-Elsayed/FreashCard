@@ -1,12 +1,73 @@
 <section class="my-15">
     <div class="w-14/15 mx-auto">
+        <div>
 
+            <div>
+                <div class="sm:flex justify-around items-center my-5">
+                    <div class="flex items-center justify-between grow">
+                        <span class="font-bold">Pages <i
+                                class="fa-solid fa-arrow-right"></i></span>
+                        <div class="flex justify-evenly grow">
+                            @for (item of
+                            paginationLinks(metadata.numberOfPages);
+                            track
+                            $index) {
+                            <a #link [class]="{
+                        'bg-mainColor':item===1,
+                        'border-mainColor':item===1,
+                        'text-white':item===1,
+                    }"
+                                class="cursor-pointer w-10 h-10 flex justify-center border border-mainColor items-center rounded-full text-mainColor"
+                                (click)="getAllProducts(metadata.limit,item);addActiveLink($event)">{{item}}</a>
+                            }
+                        </div>
+                    </div>
+                    <select (change)="choseLimit($event)"
+                        class="shadow-sm p-2 border border-mainColor outline-mainColor rounded mt-7 sm:mt-0">
+                        <option value></option>
+                        <option selected disabled>choose limit products
+                            per page</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="relative z-0 mb-5 group">
+                <input type="text" name="floating_realTimeSearch"
+                    class="block py-2.5 px-0 w-full sm:w-1/3 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-mainColor dark:border-gray-600 dark:focus:border-mainColor focus:outline-none focus:ring-0 focus:border-mainColor peer"
+                    placeholder=" " [(ngModel)]="searchTerm" />
+                <label for="floating_realTimeSearch"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-mainColor peer-focus:dark:text-mainColor peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Search
+                    With Porduct Name In This Page...</label>
+            </div>
+        </div>
         <div
             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5  gap-5">
-            @for(product of productList; track product._id){
+            @for(product of productList()|search:searchTerm ; track
+            product._id){
             <app-product-card [product]="product"
                 (toCart)="addToCart($event)"
                 (toWishList)="toggleFromWishList($event)"></app-product-card>
+            }@empty {
+            @if(searchTerm!==''){
+            <div
+                class="p-5 mb-4 text-xl col-span-12 text-mainColor rounded-lg bg-mainColor/10 dark:bg-gray-800 dark:text-mainColor"
+                role="alert">
+                <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="font-bold">Info:</span> There is no products with
+                this name in this page
+            </div>
+            }
             }
         </div>
     </div>

@@ -37,6 +37,7 @@ export class CartListComponent implements OnInit {
       next: (res) => {
         this.totalPrice = res.data.totalCartPrice;
         this.cartList = res.data.products;
+        this.cartService.cartItems.set(res.numOfCartItems);
       },
     });
   }
@@ -45,7 +46,7 @@ export class CartListComponent implements OnInit {
       next: (res) => {
         this.totalPrice = res.data.totalCartPrice;
         this.cartList = res.data.products;
-        this.cartService.cartItems.next(res.numOfCartItems);
+        this.cartService.cartItems.set(res.numOfCartItems);
       },
     });
   }
@@ -55,7 +56,7 @@ export class CartListComponent implements OnInit {
         if ((res.message = 'success')) {
           this.cartList = [];
           this.totalPrice = 0;
-          this.cartService.cartItems.next(0);
+          this.cartService.cartItems.set(0);
         }
       },
     });

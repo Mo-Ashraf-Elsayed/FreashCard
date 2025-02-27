@@ -69,7 +69,6 @@
                         class="block md:mx-3 py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-mainColor md:p-0 dark:text-white md:dark:hover:text-mainColor dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Brands</a>
                 </li>
             </ul>
-
             <ul
                 class="font-medium md:grow flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-lightColor dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
@@ -78,16 +77,15 @@
                         <i
                             class="fa-solid fa-heart text-2xl"></i>
                         <sup
-                            class=" inline-block bg-red-600 h-5 w-5 text-center leading-5 text-white rounded-full -translate-2 -translate-x-1">{{wishListItemNum}}</sup></a>
+                            class=" inline-block bg-red-600 h-5 w-5 text-center leading-5 text-white rounded-full -translate-2 -translate-x-1">{{wishListItemNum()}}</sup></a>
                 </li>
                 <li>
                     <a routerLink="/cart" routerLinkActive="text-mainColor"
                         class="block md:mx-3 py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-mainColor md:p-0 dark:text-white md:dark:hover:text-mainColor dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer transition"><i
                             class="fa-solid fa-cart-shopping text-2xl"></i> <sup
-                            class=" inline-block bg-red-600 h-5 w-5 text-center leading-5 text-white rounded-full -translate-2 -translate-x-1">{{cartItemNum}}</sup></a>
+                            class=" inline-block bg-red-600 h-5 w-5 text-center leading-5 text-white rounded-full -translate-2 -translate-x-1">{{cartItemNum()}}</sup></a>
                 </li>
             </ul>
-
             <ul
                 class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-lightColor dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>

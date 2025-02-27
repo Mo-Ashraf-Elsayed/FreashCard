@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/services/auth.service';
 
@@ -11,7 +11,7 @@ export class CartService {
   constructor() {}
   private readonly http = inject(HttpClient);
   private readonly authService = inject(AuthService);
-  cartItems = new BehaviorSubject(0);
+  cartItems: WritableSignal<number> = signal<number>(0);
   private readonly userToken: string | boolean =
     this.authService.localStorage('get')!;
   addToCart(productId: string): Observable<any> {

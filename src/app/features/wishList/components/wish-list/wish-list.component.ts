@@ -28,7 +28,7 @@ export class WishListComponent implements OnInit {
   addToCart(productId: string): void {
     this.cartService.addToCart(productId).subscribe({
       next: (res) => {
-        this.cartService.cartItems.next(res.numOfCartItems);
+        this.cartService.cartItems.set(res.numOfCartItems);
       },
     });
   }
@@ -36,7 +36,7 @@ export class WishListComponent implements OnInit {
     this.userWishListAfterDelete = [];
     this.wishListService.removeProductFromWishList(productId).subscribe({
       next: ({ data }) => {
-        this.wishListService.wishListLength.next(data.length);
+        this.wishListService.wishListLength.set(data.length);
         for (let i = 0; i < data.length; i++) {
           this.productService.getProductDetails(data[i]).subscribe({
             next: (data) => {
@@ -45,7 +45,7 @@ export class WishListComponent implements OnInit {
           });
         }
         this.userWishList = this.userWishListAfterDelete;
-        this.wishListService.wishListArr.next(this.userWishList);
+        this.wishListService.wishListArr.set(this.userWishList);
       },
     });
   }

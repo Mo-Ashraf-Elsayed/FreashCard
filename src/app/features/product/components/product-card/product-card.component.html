@@ -6,7 +6,9 @@
                 [src]="product.imageCover" alt>
         </div>
         <div class="px-5">
-            <p class="line-clamp-2 text-sm mt-7">{{product.description}}</p>
+            <div
+                class="w-fit bg-mainColor/10 text-mainColor text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-maincolor mt-7">{{product.category.name}}</div>
+            <p class="line-clamp-2 text-sm mt-2">{{product.description}}</p>
             <h2 class="font-bold line-clamp-1 my-3">{{product.title}}</h2>
 
             <div class="flex justify-between mt-5 mb-2">

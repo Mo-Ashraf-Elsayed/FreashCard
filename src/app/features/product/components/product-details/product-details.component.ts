@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product';
@@ -20,28 +20,22 @@ export class ProductDetailsComponent implements OnInit {
   productDetails: Product = {} as Product;
   copyOfProductDetails: string = JSON.stringify(this.productDetails);
   imageIndexSlider: number = 0;
-  userWishListAfterDelete: Product[] = [];
-  userWishList: Product[] = [];
+  userWishList = computed(() => this.wishListService.wishListArr());
 
   ngOnInit(): void {
     this.getProductId();
     this.getProductDetails(this.productId);
-    this.wishListService.wishListArr.subscribe({
-      next: (value) => {
-        this.userWishList = value;
-      },
-    });
   }
   isProductDetailsEmpty(): boolean {
     if (this.copyOfProductDetails === '{}') return true;
     return false;
   }
   isProductAddedtoWishList(productId: string): boolean {
-    for (let i = 0; i < this.userWishList.length; i++) {
-      if (this.userWishList[i]._id === productId) {
+    for (let i = 0; i < this.userWishList().length; i++) {
+      if (this.userWishList()[i]._id === productId) {
         return true;
-      } else if (typeof this.userWishList[i] === 'string') {
-        if ((this.userWishList[i] as unknown as string) === productId) {
+      } else if (typeof this.userWishList()[i] === 'string') {
+        if ((this.userWishList()[i] as unknown as string) === productId) {
           return true;
         }
       }
@@ -52,15 +46,15 @@ export class ProductDetailsComponent implements OnInit {
     if (this.isProductAddedtoWishList(productId)) {
       this.wishListService.removeProductFromWishList(productId).subscribe({
         next: ({ data }) => {
-          this.wishListService.wishListLength.next(data.length);
-          this.wishListService.wishListArr.next(data);
+          this.wishListService.wishListLength.set(data.length);
+          this.wishListService.wishListArr.set(data);
         },
       });
     } else {
       this.wishListService.addProductToWishList(productId).subscribe({
         next: ({ data }) => {
-          this.wishListService.wishListLength.next(data.length);
-          this.wishListService.wishListArr.next(data);
+          this.wishListService.wishListLength.set(data.length);
+          this.wishListService.wishListArr.set(data);
         },
       });
     }
@@ -82,7 +76,7 @@ export class ProductDetailsComponent implements OnInit {
   addToCart(productId: string): void {
     this.cartService.addToCart(productId).subscribe({
       next: (res) => {
-        this.cartService.cartItems.next(res.numOfCartItems);
+        this.cartService.cartItems.set(res.numOfCartItems);
       },
     });
   }

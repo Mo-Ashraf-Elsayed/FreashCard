@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, computed, inject, Input, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { CartService } from '../../../features/cart/services/cart.service';
@@ -16,8 +16,8 @@ export class NavbarComponent implements OnInit {
   private readonly cartService = inject(CartService);
   private readonly wishListService = inject(WishListService);
   router = inject(Router);
-  cartItemNum!: number;
-  wishListItemNum!: number;
+  cartItemNum = computed(() => this.cartService.cartItems());
+  wishListItemNum = computed(() => this.wishListService.wishListLength());
   logOut(): void {
     this.authService.localStorage('remove');
     this.router.navigate(['signIn']);
@@ -26,22 +26,12 @@ export class NavbarComponent implements OnInit {
     if (typeof localStorage !== 'undefined') {
       this.cartService.getUserCart().subscribe({
         next: (res) => {
-          this.cartItemNum = res.numOfCartItems;
-        },
-      });
-      this.cartService.cartItems.subscribe({
-        next: (value) => {
-          this.cartItemNum = value;
+          this.cartService.cartItems.set(res.numOfCartItems);
         },
       });
       this.wishListService.getUserWishList().subscribe({
         next: ({ data }) => {
-          this.wishListItemNum = data.length;
-        },
-      });
-      this.wishListService.wishListLength.subscribe({
-        next: (value) => {
-          this.wishListItemNum = value;
+          this.wishListService.wishListLength.set(data.length);
         },
       });
     }

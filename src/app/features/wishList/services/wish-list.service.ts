@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Product } from '../../product/models/product';
@@ -10,8 +10,8 @@ import { Product } from '../../product/models/product';
 export class WishListService {
   constructor() {}
   private readonly http = inject(HttpClient);
-  wishListLength: BehaviorSubject<number> = new BehaviorSubject(0);
-  wishListArr = new BehaviorSubject<Product[]>([]);
+  wishListLength: WritableSignal<number> = signal(0);
+  wishListArr: WritableSignal<Product[]> = signal([]);
   addProductToWishList(productId: string): Observable<any> {
     return this.http.post(environment.baseURL + 'wishlist', { productId });
   }

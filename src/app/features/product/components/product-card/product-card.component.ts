@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  computed,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+} from '@angular/core';
 import { Product } from '../../models/product';
 import { RouterLink } from '@angular/router';
 import { WishListService } from '../../../wishList/services/wish-list.service';
@@ -12,27 +19,20 @@ import { WishListService } from '../../../wishList/services/wish-list.service';
 export class ProductCardComponent {
   @Input() product!: Product;
   @Input() place: string = '';
-  @Input() wishListArr: Product[] = [];
+  wishListArr = computed(() => this.wishListService.wishListArr());
   @Output() toCart = new EventEmitter<string>();
   @Output() toWishList = new EventEmitter<string>();
   wishListService = inject(WishListService);
   isProductAddedtoWishList(): boolean {
-    for (let i = 0; i < this.wishListArr.length; i++) {
-      if (this.wishListArr[i]._id === this.product._id) {
+    for (let i = 0; i < this.wishListArr().length; i++) {
+      if (this.wishListArr()[i]._id === this.product._id) {
         return true;
-      } else if (typeof this.wishListArr[i] === 'string') {
-        if ((this.wishListArr[i] as unknown as string) === this.product._id) {
+      } else if (typeof this.wishListArr()[i] === 'string') {
+        if ((this.wishListArr()[i] as unknown as string) === this.product._id) {
           return true;
         }
       }
     }
     return false;
-  }
-  ngOnInit() {
-    this.wishListService.wishListArr.subscribe({
-      next: (value) => {
-        this.wishListArr = value;
-      },
-    });
   }
 }
