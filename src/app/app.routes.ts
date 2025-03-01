@@ -17,6 +17,7 @@ import { VerifyResetCodeComponent } from './core/auth/components/verify-reset-co
 import { ResetPasswordComponent } from './core/auth/components/reset-password/reset-password.component';
 import { CheckOutComponent } from './features/order/components/check-out/check-out.component';
 import { WishListComponent } from './features/wishList/components/wish-list/wish-list.component';
+import { UserOrdersComponent } from './features/order/components/user-orders/user-orders.component';
 
 export const routes: Routes = [
   {
@@ -74,6 +75,7 @@ export const routes: Routes = [
         component: CheckOutComponent,
         title: 'Check Out',
       },
+      { path: 'allorders', component: UserOrdersComponent, title: 'My Orders' },
     ],
   },
   { path: '**', component: NotFoundComponent },

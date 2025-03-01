@@ -61,8 +61,6 @@ export class ProductListComponent implements OnInit {
       next: (res) => {
         this.productList.set(res.data);
         this.metadata = res.metadata;
-        console.log(res.data);
-        console.log(this.metadata);
       },
     });
   }

@@ -13,7 +13,7 @@ export class CartService {
   private readonly authService = inject(AuthService);
   cartItems: WritableSignal<number> = signal<number>(0);
   private readonly userToken: string | boolean =
-    this.authService.localStorage('get')!;
+    this.authService.myLocalStorage('get', 'authToken')!;
   addToCart(productId: string): Observable<any> {
     if (typeof this.userToken === 'string') {
       return this.http.post(environment.baseURL + 'cart', { productId });

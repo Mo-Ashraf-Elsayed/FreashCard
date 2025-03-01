@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 
 export const headersInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
-  const userToken = authService.localStorage('get');
+  const userToken = authService.myLocalStorage('get', 'authToken');
   if (typeof userToken === 'string') {
     if (
       req.url.includes('cart') ||

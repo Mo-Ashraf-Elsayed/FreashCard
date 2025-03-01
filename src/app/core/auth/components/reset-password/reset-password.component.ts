@@ -38,7 +38,7 @@ export class ResetPasswordComponent {
     if (this.authForm.valid) {
       this.authService.resetPassword(this.authForm.value).subscribe({
         next: (res) => {
-          this.authService.localStorage('set', res.token);
+          this.authService.myLocalStorage('set', 'authToken', res.token);
           this.router.navigate(['home']);
         },
       });

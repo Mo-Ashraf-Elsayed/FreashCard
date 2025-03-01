@@ -1,6 +1,23 @@
 
 
 <nav class="bg-lightColor border-gray-200 dark:bg-gray-900">
+    @if(layout !='visitor'){
+    <div
+        class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div class="flex items-center">
+            <span
+                class="h-8 w-8 rounded-full bg-white text-mainColor flex justify-center items-center">
+                <i class="fa-solid fa-user"></i>
+            </span> {{userName}}
+        </div>
+        <a routerLink="/allorders" routerLinkActive="text-mainColor"
+            class="block md:mx-3 py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-mainColor md:p-0 dark:text-white md:dark:hover:text-mainColor dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer transition">
+            Track your orders <i class="fa-solid fa-truck"></i>
+            <span class="absolute -top-4/7 right-0-0">1</span>
+            <sup
+                class=" inline-block bg-red-600 h-5 w-5 text-center leading-5 text-white rounded-full -translate-2 -translate-x-1">{{ordersNum}}</sup></a>
+    </div>
+    }
     <div
         class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         @if(layout == 'visitor'){

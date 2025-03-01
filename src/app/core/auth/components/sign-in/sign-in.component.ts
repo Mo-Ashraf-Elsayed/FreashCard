@@ -45,7 +45,7 @@ export class SignInComponent {
         next: (res) => {
           this.isLoading = true;
           this.messageSuccess = true;
-          this.authService.localStorage('set', res.token);
+          this.authService.myLocalStorage('set', 'authToken', res.token);
           if (res.message) {
             this.responseMessage = res.message;
             setTimeout(() => {

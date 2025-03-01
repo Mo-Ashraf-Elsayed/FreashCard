@@ -1,0 +1,8 @@
+<section class="my-15">
+    <div class="w-14/15 mx-auto">
+        @for (userOrder of userOrders; track $index) {
+        <app-user-orders-card [userOrder]="userOrder"></app-user-orders-card>
+        }
+
+    </div>
+</section>

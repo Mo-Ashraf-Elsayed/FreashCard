@@ -5,7 +5,7 @@ import { inject } from '@angular/core';
 export const authenticationGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  const isThereToken = authService.localStorage('check');
+  const isThereToken = authService.myLocalStorage('check', 'authToken');
   let verifyMsg!: string;
 
   if (!isThereToken) {
@@ -19,7 +19,7 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
     },
     error: ({ message }) => {
       verifyMsg = message;
-      authService.localStorage('remove');
+      authService.myLocalStorage('remove', 'authToken');
       router.navigate(['signIn']);
       return false;
     },

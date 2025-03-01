@@ -1,0 +1,52 @@
+<section class="bg-lightColor rounded p-5 my-3">
+    <div class="flex items-center gap-10 mb-5">
+        <div>
+            <h1 class="text-mainColor"><span class="font-bold">Order Id:
+                </span>{{userOrder.id}}</h1>
+            <p><span class="font-bold">order date: </span>{{userOrder.createdAt
+                |
+                date:'medium'}}</p>
+            <p><span class="font-bold">order paid date:
+                </span>{{userOrder.updatedAt| date:'medium'}}</p>
+            <p><span class="font-bold">How Do I Pay: </span>
+                {{userOrder.paymentMethodType}}</p>
+            <p><span class="font-bold">shipping city:
+                </span>{{userOrder.shippingAddress.city}}</p>
+            <p><span class="font-bold">shipping Address:
+                </span>{{userOrder.shippingAddress.details}}</p>
+            <p><span class="font-bold">Phone:
+                </span>{{userOrder.shippingAddress.phone}}</p>
+        </div>
+        <div>
+            <p>
+                <span class="font-bold">Order Delivered: </span>
+                @if(userOrder.isDelivered){
+                <i class="fa-solid fa-circle-check text-green-600"></i>
+                }@else {
+                <i class="fa-solid fa-circle-xmark text-red-600"></i>
+                }
+            </p>
+            <p><span class="font-bold">Order Paid: </span>
+                @if(userOrder.isPaid){
+                <i class="fa-solid fa-circle-check text-green-600"></i>
+                }@else {
+                <i class="fa-solid fa-circle-xmark text-red-600"></i>
+                }
+            </p>
+            <p><span class="font-bold">Total order price: <i
+                        class="fa-solid fa-sterling-sign"></i></span>
+                {{userOrder.totalOrderPrice}}</p>
+        </div>
+    </div>
+    <div>
+        @defer (on interaction) {
+        <app-products-order
+            [productsOrder]="userOrder.cartItems"></app-products-order>
+        }@placeholder {
+        <div
+            class="cursor-pointer font-bold underline text-gray-500 text-end">See
+            order
+            products</div>
+        }
+    </div>
+</section>

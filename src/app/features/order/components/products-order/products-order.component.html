@@ -1,0 +1,27 @@
+<div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5  gap-5">
+    @for (product of productsOrder; track $index) {
+    <div
+        class="pb-5 relative cursor-pointer shadow-myShadow hover:shadow-xl rounded-md transition-all duration-300 overflow-hidden group">
+        <div>
+            <div class="w-full">
+                <img
+                    [src]="product.product.imageCover" alt>
+            </div>
+            <div class="px-5">
+                <div class=" mt-5 mb-2">
+                    <h4 class=" text-lg font-bold">Price per piece: <i
+                            class="fa-solid fa-sterling-sign"></i>
+                        {{product.price}}
+                    </h4>
+                    <h4 class=" text-lg font-bold">
+                        Count:
+                        {{product.count}}
+                    </h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>
