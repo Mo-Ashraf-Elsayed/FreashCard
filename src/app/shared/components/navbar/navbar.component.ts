@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   private readonly wishListService = inject(WishListService);
   private readonly orderService = inject(OrderService);
 
-  userName: string = this.authService.decodeToken().name;
+  userName!: string;
   router = inject(Router);
   cartItemNum = computed(() => this.cartService.cartItems());
   wishListItemNum = computed(() => this.wishListService.wishListLength());
@@ -34,8 +34,12 @@ export class NavbarComponent implements OnInit {
       },
     });
   }
+  defineUserName() {
+    this.userName = this.authService.decodeToken().name;
+  }
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {
+      this.defineUserName();
       this.getOrdersNumCount();
       this.cartService.getUserCart().subscribe({
         next: (res) => {

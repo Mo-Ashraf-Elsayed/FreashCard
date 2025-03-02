@@ -13,7 +13,7 @@ export class OrderService {
   checkOut(cartId: string | null, shippingAddress: object): Observable<any> {
     return this.http.post(
       environment.baseURL +
-        `orders/checkout-session/${cartId}?url=https://freash-card.vercel.app/#/`,
+        `orders/checkout-session/${cartId}?url=https://freash-card.vercel.app`,
       shippingAddress
     );
   }
