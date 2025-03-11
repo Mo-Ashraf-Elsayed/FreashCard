@@ -34,7 +34,7 @@ export const routes: Routes = [
         title: 'Forgot Password',
       },
       {
-        path: 'verifyCode',
+        path: 'verifyCode/:email',
         component: VerifyResetCodeComponent,
         title: 'Verify Code',
       },

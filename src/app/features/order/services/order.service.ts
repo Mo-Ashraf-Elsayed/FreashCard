@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/services/auth.service';
 
@@ -18,7 +18,11 @@ export class OrderService {
     );
   }
   getUserOrders(): Observable<any> {
-    const userId = this.authService.decodeToken().id;
-    return this.http.get(environment.baseURL + 'orders/user/' + userId);
+    try {
+      const userId = this.authService.decodeToken().id;
+      return this.http.get(environment.baseURL + 'orders/user/' + userId);
+    } catch (error) {
+      return of(false);
+    }
   }
 }

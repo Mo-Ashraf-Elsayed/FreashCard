@@ -20,6 +20,9 @@ import { provideToastr } from 'ngx-toastr';
 import { headersInterceptor } from './core/interceptors/headers/headers.interceptor';
 import { errorsInterceptor } from './core/interceptors/errors/errors.interceptor';
 import { loadingInterceptor } from './core/interceptors/loading/loading.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -36,5 +39,11 @@ export const appConfig: ApplicationConfig = {
     ),
     importProvidersFrom(BrowserAnimationsModule),
     provideToastr(),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+      },
+    }),
   ],
 };

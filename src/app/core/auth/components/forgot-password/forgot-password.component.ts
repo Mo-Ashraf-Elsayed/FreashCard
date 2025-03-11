@@ -25,9 +25,12 @@ export class ForgotPasswordComponent {
   submitForm(): void {
     if (this.authForm.valid) {
       this.isLoading = true;
+      console.log(this.authForm.value);
       this.authService.forgotPassword(this.authForm.value).subscribe({
         next: () => {
-          this.router.navigate(['verifyCode']);
+          this.router.navigate([
+            `verifyCode/${this.authForm.get('email')?.value}`,
+          ]);
         },
         error: () => {
           this.isLoading = false;

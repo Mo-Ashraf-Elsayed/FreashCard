@@ -17,7 +17,6 @@ export class UserOrdersComponent implements OnInit {
     this.orderService.getUserOrders().subscribe({
       next: (res) => {
         this.userOrders = res;
-        console.log(this.userOrders);
       },
     });
   }

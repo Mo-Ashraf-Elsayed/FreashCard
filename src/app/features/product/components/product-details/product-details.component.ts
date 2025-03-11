@@ -17,18 +17,13 @@ export class ProductDetailsComponent implements OnInit {
   private readonly cartService = inject(CartService);
   private readonly wishListService = inject(WishListService);
   productId!: string | null;
-  productDetails: Product = {} as Product;
-  copyOfProductDetails: string = JSON.stringify(this.productDetails);
+  productDetails!: Product;
   imageIndexSlider: number = 0;
   userWishList = computed(() => this.wishListService.wishListArr());
 
   ngOnInit(): void {
     this.getProductId();
     this.getProductDetails(this.productId);
-  }
-  isProductDetailsEmpty(): boolean {
-    if (this.copyOfProductDetails === '{}') return true;
-    return false;
   }
   isProductAddedtoWishList(productId: string): boolean {
     for (let i = 0; i < this.userWishList().length; i++) {

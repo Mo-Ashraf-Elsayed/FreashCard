@@ -7,11 +7,9 @@ import { finalize, tap } from 'rxjs';
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   const spinnerService = inject(NgxSpinnerService);
   const toastr = inject(ToastrService);
-
-  if (req.method === 'GET') {
+  if (req.method === 'GET' || req.url.includes('verifyResetCode')) {
     spinnerService.show();
   }
-
   return next(req).pipe(
     tap((event: any) => {
       if (
@@ -30,7 +28,7 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
       }
     }),
     finalize(() => {
-      if (req.method === 'GET') {
+      if (req.method === 'GET' || req.url.includes('verifyResetCode')) {
         spinnerService.hide();
       }
     })

@@ -3,6 +3,7 @@ import {
   computed,
   ElementRef,
   inject,
+  OnDestroy,
   OnInit,
   QueryList,
   signal,
@@ -17,6 +18,7 @@ import { WishListService } from '../../../wishList/services/wish-list.service';
 import { SearchPipe } from '../../../../shared/pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
 import { MetaData } from '../../models/meta-data';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -24,7 +26,7 @@ import { MetaData } from '../../models/meta-data';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   private readonly cartService = inject(CartService);
   private readonly productService = inject(ProductService);
   private readonly wishListService = inject(WishListService);
@@ -33,6 +35,7 @@ export class ProductListComponent implements OnInit {
   wishListArr = computed(() => this.wishListService.wishListArr());
   isAdded: boolean = false;
   searchTerm: string = '';
+  cancelSubscribe: Subscription = new Subscription();
   @ViewChildren('link') pagesLinks!: QueryList<ElementRef>;
   paginationLinks(num: number) {
     let arr = [];
@@ -57,12 +60,14 @@ export class ProductListComponent implements OnInit {
     element.classList.add('bg-mainColor', 'border-mainColor', 'text-white');
   }
   getAllProducts(limit: number, page: number) {
-    this.productService.getProducts(limit, page).subscribe({
-      next: (res) => {
-        this.productList.set(res.data);
-        this.metadata = res.metadata;
-      },
-    });
+    this.cancelSubscribe = this.productService
+      .getProducts(limit, page)
+      .subscribe({
+        next: (res) => {
+          this.productList.set(res.data);
+          this.metadata = res.metadata;
+        },
+      });
   }
   getWishList() {
     this.wishListService.getUserWishList().subscribe({
@@ -110,5 +115,8 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.getAllProducts(40, 1);
     this.getWishList();
+  }
+  ngOnDestroy(): void {
+    this.cancelSubscribe.unsubscribe();
   }
 }

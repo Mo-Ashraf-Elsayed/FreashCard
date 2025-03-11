@@ -35,7 +35,11 @@ export class NavbarComponent implements OnInit {
     });
   }
   defineUserName() {
-    this.userName = this.authService.decodeToken().name;
+    try {
+      this.userName = this.authService.decodeToken().name;
+    } catch {
+      this.userName = 'UnKnown';
+    }
   }
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {
