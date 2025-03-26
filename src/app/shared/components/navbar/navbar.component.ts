@@ -41,20 +41,26 @@ export class NavbarComponent implements OnInit {
       this.userName = 'UnKnown';
     }
   }
+  setCartItemsNum() {
+    this.cartService.getUserCart().subscribe({
+      next: (res) => {
+        this.cartService.cartItems.set(res.numOfCartItems);
+      },
+    });
+  }
+  setWishLisItemstNum() {
+    this.wishListService.getUserWishList().subscribe({
+      next: ({ data }) => {
+        this.wishListService.wishListLength.set(data.length);
+      },
+    });
+  }
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {
       this.defineUserName();
       this.getOrdersNumCount();
-      this.cartService.getUserCart().subscribe({
-        next: (res) => {
-          this.cartService.cartItems.set(res.numOfCartItems);
-        },
-      });
-      this.wishListService.getUserWishList().subscribe({
-        next: ({ data }) => {
-          this.wishListService.wishListLength.set(data.length);
-        },
-      });
+      this.setCartItemsNum();
+      this.setWishLisItemstNum();
     }
   }
 }
