@@ -15,7 +15,7 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
   authService.verifyToken().subscribe({
     next: ({ message }) => {
       verifyMsg = message;
-      router.navigate(['home']);
+      return true
     },
     error: ({ message }) => {
       verifyMsg = message;
